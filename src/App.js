@@ -1,59 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types'; // 맞는 데이터나 변수를 넣어주는지 확인
 
+class App extends React.Component{
+    constructor(props) {
+        super(props);
+        console.log('hello');
+    }
+    state = {
+        count: 0
+    }
 
-function Food({ name, picture, rating }) {
-    return (
-        <div>
-            <h2>I like {name}</h2>
-            <h4>{rating}/5.0</h4>
-            <img width='300' src={picture} alt={name}/>
-        </div>
-    )
-}
+    add = () => {
+        this.setState(current => ({count: current.count++ }));
+    };
+    minus = ()=> {
+        this.setState(current => ({count: current.count-- }));
+    };
 
-Food.propTypes = {
-    name:PropTypes.string.isRequired,
-    picture:PropTypes.string.isRequired,
-    rating:PropTypes.number.isRequired
-}
+    componentDidMount() { //  컴포넌트가 마운트된 직후
+        console.log('componet render')
+    }
 
-const foodILike = [{
-    id:1,
-    name: "수육",
-    image:"https://craftlog.com/m/i/6244757=s1280=h960.jpg",
-    rating: 5
-},{
-    id:2,
-    name: "김치",
-    image:"https://craftlog.com/m/i/6244757=s1280=h960.jpg",
-    rating: 5
-},{
-    id:3,
-    name: "제육",
-    image:"https://craftlog.com/m/i/6244757=s1280=h960.jpg",
-    rating: 5
-},{
-    id:4,
-    name: "편육",
-    image:"https://craftlog.com/m/i/6244757=s1280=h960.jpg",
-    rating: 5
-},];
+    componentDidUpdate() {
+        console.log('im update!')
+    }
 
+    
 
-function App() {
-  return (
-    <div>
-        <h1>Hello!</h1>
-        {foodILike.map(dish => (
-            <Food 
-            key={dish.id} 
-            name={dish.name} 
-            picture={dish.image} 
-            rating={dish.rating}/>
-        ))}        
-    </div>
-  );
+    render(){
+        console.log('im rendering');
+        return (
+            <div>
+                <h1>The number is :  {this.state.count}</h1>
+                <button onClick={this.add}>Add</button>
+                <button onClick={this.minus}>Minus</button>
+            </div>
+        )
+    }
 }
 
 export default App;
